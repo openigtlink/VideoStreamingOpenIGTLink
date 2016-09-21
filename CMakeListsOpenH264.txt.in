@@ -4,7 +4,8 @@ cmake_minimum_required(VERSION 2.8.2)
 project(OpenH264-download NONE)
 include(ExternalProject)
 ExternalProject_Add(OpenH264
-  URL https://github.com/cisco/openh264/archive/master.zip
+  GIT_REPOSITORY https://github.com/cisco/openh264.git
+  GIT_TAG 33cb4a6df04b0d24c1ab20a260d358c737c1577e
   SOURCE_DIR        "${PROJECT_BINARY_DIR}/OpenH264"
   BINARY_DIR        "${PROJECT_BINARY_DIR}/OpenH264"
   CONFIGURE_COMMAND ""
