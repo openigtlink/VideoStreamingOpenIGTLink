@@ -2,13 +2,14 @@
 cmake_minimum_required(VERSION 2.8.2)
  
 project(OpenIGTLink-download NONE)
-include(ExternalProject)
+include(ExternalProject) 
 ExternalProject_Add(OpenIGTLink
-  URL https://github.com/cisco/openh264/archive/master.zip
-  SOURCE_DIR        "${CMAKE_BINARY_DIR}/Testing/OpenH264"
-  BINARY_DIR        "${CMAKE_BINARY_DIR}/Testing/OpenH264"
-  CONFIGURE_COMMAND ""
-  BUILD_COMMAND     make
+  GIT_REPOSITORY "https://github.com/leochan2009/OpenIGTLink.git"
+  GIT_TAG "VideoStream"
+  SOURCE_DIR        "${PROJECT_BINARY_DIR}/OpenIGTLink-src"
+  BINARY_DIR        "${PROJECT_BINARY_DIR}/OpenIGTLink-bin"
+  CONFIGURE_COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" -DBUILD_TESTING=OFF ${PROJECT_BINARY_DIR}/OpenIGTLink-src
+  BUILD_COMMAND     ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR}/OpenIGTLink-bin
   INSTALL_COMMAND   ""
   TEST_COMMAND      ""
 )
