@@ -53,6 +53,8 @@ int64_t getCurrentTime()
   
 }
 
+int32_t iFrameCountTotal = 0;
+
 void H264DecodeInstance (ISVCDecoder* pDecoder, unsigned char* kpH264BitStream, const char* kpOuputFileName,
                          int32_t& iWidth, int32_t& iHeight, int32_t& iStreamSize, const char* pOptionFileName) {
   
@@ -238,11 +240,14 @@ void H264DecodeInstance (ISVCDecoder* pDecoder, unsigned char* kpH264BitStream, 
       ++ iFrameCount;
     }
 #endif
-    dElapsed = iTotal / 1e6;
-    fprintf (stderr, "-------------------------------------------------------\n");
-     fprintf (stderr, "iWidth:\t\t%d\nheight:\t\t%d\nFrames:\t\t%d\ndecode time:\t%f sec\nFPS:\t\t%f fps\n",
-     iWidth, iHeight, iFrameCount, dElapsed, (iFrameCount * 1.0) / dElapsed);
-     fprintf (stderr, "-------------------------------------------------------\n");
+    if (iFrameCount)
+    {
+      dElapsed = iTotal / 1e6;
+      fprintf (stderr, "-------------------------------------------------------\n");
+       fprintf (stderr, "iWidth:\t\t%d\nheight:\t\t%d\nFrames:\t\t%d\ndecode time:\t%f sec\nFPS:\t\t%f fps\n",
+       iWidth, iHeight, ++iFrameCountTotal, dElapsed, (iFrameCount * 1.0) / dElapsed);
+       fprintf (stderr, "-------------------------------------------------------\n");
+    }
     iBufPos += iSliceSize;
     ++ iSliceIndex;
   }

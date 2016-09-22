@@ -37,19 +37,21 @@ int main(int argc, char* argv[])
   //------------------------------------------------------------
   // Parse Arguments
   
-  if (argc != 4) // check number of arguments
+  if (argc != 5) // check number of arguments
   {
     // If not correct, print usage
     std::cerr << "Usage: " << argv[0] << " <hostname> <port> <fps>"    << std::endl;
     std::cerr << "    <hostname> : IP or host name"                    << std::endl;
-    std::cerr << "    <port>     : Port # (18944 in Slicer default)"   << std::endl;
+    std::cerr << "    <port>     : Port # (18944 in default)"   << std::endl;
     std::cerr << "    <fps>      : Frequency (fps) to send frame" << std::endl;
+    std::cerr << "    <frameNum>      : Number of frame to be received" << std::endl;
     exit(0);
   }
   
   char*  hostname = argv[1];
   int    port     = atoi(argv[2]);
   double fps      = atof(argv[3]);
+  int frameNum      = atoi(argv[4]);
   int    interval = (int) (1000.0 / fps);
   
   ISVCDecoder* decoder_;
@@ -86,7 +88,7 @@ int main(int argc, char* argv[])
   socket->Send(startVideoMsg->GetPackPointer(), startVideoMsg->GetPackSize());
   int loop = 0;
   std::string outputFileName = "outputDecodedVideo.yuv";
-  while (1)
+  while (1 && loop < frameNum)
   {
     //------------------------------------------------------------
     // Wait for a reply
@@ -111,23 +113,23 @@ int main(int argc, char* argv[])
     if (strcmp(headerMsg->GetDeviceName(), "Video") == 0)
     {
       ReceiveVideoData(socket, headerMsg, decoder_, outputFileName.c_str());
+      if (++loop >= frameNum) // if received user define frame number
+      {
+        //------------------------------------------------------------
+        // Ask the server to stop pushing tracking data
+        std::cerr << "Sending STP_VIDEO message....." << std::endl;
+        igtl::StopVideoMessage::Pointer stopVideoMsg;
+        stopVideoMsg = igtl::StopVideoMessage::New();
+        stopVideoMsg->SetDeviceName("TDataClient");
+        stopVideoMsg->Pack();
+        socket->Send(stopVideoMsg->GetPackPointer(), stopVideoMsg->GetPackSize());
+        break;
+      }
     }
     else
     {
       std::cerr << "Receiving : " << headerMsg->GetDeviceType() << std::endl;
       socket->Skip(headerMsg->GetBodySizeToRead(), 0);
-    }
-    if (++loop >= 50) // if received 16 times
-    {
-      //------------------------------------------------------------
-      // Ask the server to stop pushing tracking data
-      std::cerr << "Sending STP_VIDEO message....." << std::endl;
-      igtl::StopVideoMessage::Pointer stopVideoMsg;
-      stopVideoMsg = igtl::StopVideoMessage::New();
-      stopVideoMsg->SetDeviceName("TDataClient");
-      stopVideoMsg->Pack();
-      socket->Send(stopVideoMsg->GetPackPointer(), stopVideoMsg->GetPackSize());
-      loop = 0;
     }
   }
   WelsDestroyDecoder(decoder_);

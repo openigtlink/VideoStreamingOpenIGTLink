@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
     {
     // If not correct, print usage
     std::cerr << "Usage: " << argv[0] << " <port>"    << std::endl;
-    std::cerr << "    <port>     : Port # (18944 in Slicer default)"   << std::endl;
+    std::cerr << "    <port>     : Port # (18944 in default)"   << std::endl;
     std::cerr << "    <VideoFile>     : the name of the video with full directory "   << std::endl;
     std::cerr << "    <Width>     : Width of the frame"   << std::endl;
     std::cerr << "    <Height>    : Height of the frame"   << std::endl;
