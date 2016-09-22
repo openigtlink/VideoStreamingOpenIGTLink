@@ -1,12 +1,11 @@
 #include <time.h>
 #if defined(_WIN32) /*&& defined(_DEBUG)*/
-
-#include <windows.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <sys/types.h>
+  #include <windows.h>
+  #include <stdio.h>
+  #include <stdarg.h>
+  #include <sys/types.h>
 #else
-#include <sys/time.h>
+  #include <sys/time.h>
 #endif
 #include <vector>
 #define NO_DELAY_DECODING
@@ -55,9 +54,16 @@ int Process (void* pDst[3], SBufferInfo* pInfo, FILE* pFp) {
 
 int64_t getCurrentTime()
 {
+#if defined(_WIN32)
+  SYSTEMTIME sysTime = {0};
+  GetLocalTime(&sysTime);
+  return sysTime.wMilliseconds;
+#else
   struct timeval tv_date;
   gettimeofday(&tv_date, NULL);
-  return ((int64_t) tv_date.tv_sec * 1000000 + (int64_t) tv_date.tv_usec);
+  return ((int64_t)tv_date.tv_sec * 1000000 + (int64_t)tv_date.tv_usec);
+#endif
+  
   
 }
 

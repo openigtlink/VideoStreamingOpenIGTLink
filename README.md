@@ -38,15 +38,12 @@ You might need super user access.
   * Click "Configure" and select your compiler (usually just click "OK")
   * Message: "Build directory does not exit, should I create it?" - click "OK"
   * Click "Configure"
-  * The source code for OpenIGTLink and OpenH264 will be download
-  * Don't close this CMake
-* Build OpenIGTLink 
-  * The source file is located at: C:\Devel\VideoStreamingOpenIGTLink-build\OpenIGTLink-src
-  * Check the build step for OpenIGTLink at this web page [OpenIGTLink Web Page](http://openigtlink.org/)
+  * The source code for OpenIGTLink and OpenH264 will be download, OpenIGTLink library will be build automatically.(if the build was not successful, manual rebuild is needed, Check the build step for OpenIGTLink at this web page [OpenIGTLink Web Page](http://openigtlink.org/))
+  * In the CMake GUI of VideoStreamingOpenIGTLink, specify the build location of the OpenIGTLink and configure again if you use manual build.
+  * close this CMake
 * Build OpenH264 
   * The source file is located at: C:\Devel\VideoStreamingOpenIGTLink-build\OpenH264
   * Check the build step for OpenH264 at this web page [OpenH264 Web Page](http://www.openh264.org/)  
-* In the CMake GUI of VideoStreamingOpenIGTLink, specify the build location of the OpenIGTLink and configure again.
 * Start Visual C and compile the project (C:\Devel\VideoStreamingOpenIGTLink-build\VideoStreamingOpenIGTLink.sln)
 If all went OK you will have the executable and the library:
 * C:\Devel\VideoStreamingOpenIGTLink-build\VideoStreamReceiver\bin\debug\VideoStreamReceiver.exe
