@@ -1,5 +1,13 @@
-#include <sys/time.h>
 #include <time.h>
+#if defined(_WIN32) /*&& defined(_DEBUG)*/
+
+#include <windows.h>
+#include <stdio.h>
+#include <stdarg.h>
+#include <sys/types.h>
+#else
+#include <sys/time.h>
+#endif
 #include <vector>
 #define NO_DELAY_DECODING
 

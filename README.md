@@ -38,8 +38,16 @@ You might need super user access.
   * Click "Configure" and select your compiler (usually just click "OK")
   * Message: "Build directory does not exit, should I create it?" - click "OK"
   * Click "Configure"
-  * Click "OK" to close CMake
-* Start Visual C and compile the project (C:\Devel\VideoStreamingOpenIGTLink-build\OpenIGTLink.sln)
+  * The source code for OpenIGTLink and OpenH264 will be download
+  * Don't close this CMake
+* Build OpenIGTLink 
+  * The source file is located at: C:\Devel\VideoStreamingOpenIGTLink-build\OpenIGTLink-src
+  * Check the build step for OpenIGTLink at this web page [OpenIGTLink Web Page](http://openigtlink.org/)
+* Build OpenH264 
+  * The source file is located at: C:\Devel\VideoStreamingOpenIGTLink-build\OpenH264
+  * Check the build step for OpenH264 at this web page [OpenH264 Web Page](http://www.openh264.org/)  
+* In the CMake GUI of VideoStreamingOpenIGTLink, specify the build location of the OpenIGTLink and configure again.
+* Start Visual C and compile the project (C:\Devel\VideoStreamingOpenIGTLink-build\VideoStreamingOpenIGTLink.sln)
 If all went OK you will have the executable and the library:
 * C:\Devel\VideoStreamingOpenIGTLink-build\VideoStreamReceiver\bin\debug\VideoStreamReceiver.exe
 * C:\Devel\VideoStreamingOpenIGTLink-build\VideoStreamServer\bin\debug\VideoStreamServer.exe
@@ -47,14 +55,15 @@ If all went OK you will have the executable and the library:
 Demonstration Instruction
 -------------------------
  Prepare the data in the format of YUV420, which is currently the only supported format.
- Open A terminal or command window, run the VideoStreamServer.exec first, which take four auguments, an example in the mac terminal will be:
+ Open A terminal or command window, run the VideoStreamServer.exec first, which take four augments, an example in the mac terminal will be:
 
     $  ./VideoStreamServer 18944 ../OpenH264/res/CiscoVT2people_320x192_12fps.yuv 320 192
   
  Then run the VideoStreamReceiver.exec in another terminal window, an example will be:
 
     $  ./VideoStreamReceiver localhost  18944 10 100
-  
+
+To see the explanation of the augments, just run the programs without any augments.
 The decoded output image with name "outputDecodedVideo.yuv" will be in the same directory as the VideoStreamReceiver.exec
 To view the decodedvideo, you could download a YUV player from this repository [YUV Player](https://github.com/IENT/YUView.git)
 

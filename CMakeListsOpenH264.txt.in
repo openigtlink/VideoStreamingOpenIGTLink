@@ -9,7 +9,7 @@ ExternalProject_Add(OpenH264
   SOURCE_DIR        "${PROJECT_BINARY_DIR}/OpenH264"
   BINARY_DIR        "${PROJECT_BINARY_DIR}/OpenH264"
   CONFIGURE_COMMAND ""
-  BUILD_COMMAND     make 
+  BUILD_COMMAND     ""
   INSTALL_COMMAND   ""
   TEST_COMMAND      ""
 )

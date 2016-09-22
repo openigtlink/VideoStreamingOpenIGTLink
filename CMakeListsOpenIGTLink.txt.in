@@ -3,13 +3,22 @@ cmake_minimum_required(VERSION 2.8.2)
  
 project(OpenIGTLink-download NONE)
 include(ExternalProject) 
+
+set(ConfigureCommand "")
+set(BuildCommand "")
+
+if (NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")
+	set(ConfigureCommand "${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" -DBUILD_TESTING=OFF ${PROJECT_BINARY_DIR}/OpenIGTLink-src")
+	set(BuildCommand "${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR}/OpenIGTLink-bin")
+endif(NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")
+
 ExternalProject_Add(OpenIGTLink
   GIT_REPOSITORY "https://github.com/leochan2009/OpenIGTLink.git"
   GIT_TAG "VideoStream"
   SOURCE_DIR        "${PROJECT_BINARY_DIR}/OpenIGTLink-src"
   BINARY_DIR        "${PROJECT_BINARY_DIR}/OpenIGTLink-bin"
-  CONFIGURE_COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" -DBUILD_TESTING=OFF ${PROJECT_BINARY_DIR}/OpenIGTLink-src
-  BUILD_COMMAND     ${CMAKE_COMMAND} --build ${PROJECT_BINARY_DIR}/OpenIGTLink-bin
+  CONFIGURE_COMMAND ${ConfigureCommand}
+  BUILD_COMMAND     ${BuildCommand}
   INSTALL_COMMAND   ""
   TEST_COMMAND      ""
 )

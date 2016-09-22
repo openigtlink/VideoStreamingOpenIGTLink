@@ -8,8 +8,10 @@ execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
 		WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/OpenH264-download" )
 execute_process(COMMAND "${CMAKE_COMMAND}" --build . 
 		WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/OpenH264-download" )			
-     	 
-          
+if(NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")     	 
+	execute_process(COMMAND "make" WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/OpenH264" )			
+endif(NOT CMAKE_SYSTEM_NAME STREQUAL "Windows") 
+            
 configure_file(CMakeListsOpenIGTLink.txt.in
 								 OpenIGTLink-download/CMakeLists.txt)
 #Here the downloading project is triggered								 
