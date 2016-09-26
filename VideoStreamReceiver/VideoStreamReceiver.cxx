@@ -1,10 +1,7 @@
 /*=========================================================================
  
- Program:   Open IGT Link -- Example for Tracker Client Program
- Module:    $RCSfile: $
+ Program:   OpenIGTLink
  Language:  C++
- Date:      $Date: $
- Version:   $Revision: $
  
  Copyright (c) Insight Software Consortium. All rights reserved.
  
@@ -15,6 +12,7 @@
  =========================================================================*/
 
 #include <fstream>
+#include <climits>
 #include "api/svc/codec_api.h"
 #include "api/svc/codec_app_def.h"
 #include "utils/BufferedData.h"

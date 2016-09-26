@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project( VideoStreamServer )
 
-set(CMAKE_PREFIX_PATH	"${CMAKE_BINARY_DIR}/OpenIGTLink-bin")	
+set(CMAKE_PREFIX_PATH	"${CMAKE_BINARY_DIR}/OpenIGTLink-build")	
 find_package(OpenIGTLink REQUIRED)
 include(${OpenIGTLink_USE_FILE})
 include_directories(${OpenIGTLink_INCLUDE_DIRS})
