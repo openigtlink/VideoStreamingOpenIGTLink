@@ -77,11 +77,11 @@ void H264DecodeInstance (ISVCDecoder* pDecoder, unsigned char* kpH264BitStream, 
   int64_t iStart = 0, iEnd = 0, iTotal = 0;
   int32_t iSliceSize;
   int32_t iSliceIndex = 0;
-  uint8_t* pBuf = NULL;
-  uint8_t uiStartCode[4] = {0, 0, 0, 1};
+  unsigned char* pBuf = NULL;
+  unsigned char uiStartCode[4] = {0, 0, 0, 1};
   
-  uint8_t* pData[3] = {NULL};
-  uint8_t* pDst[3] = {NULL};
+  unsigned char* pData[3] = {NULL};
+  unsigned char* pDst[3] = {NULL};
   SBufferInfo sDstBufInfo;
   
   int32_t iBufPos = 0;
@@ -128,7 +128,7 @@ void H264DecodeInstance (ISVCDecoder* pDecoder, unsigned char* kpH264BitStream, 
     fprintf (stderr, "Current Bit Stream File is too small, read error!!!!\n");
     goto label_exit;
   }
-  pBuf = new uint8_t[iStreamSize + 4];
+  pBuf = new unsigned char[iStreamSize + 4];
   if (pBuf == NULL) {
     fprintf (stderr, "new buffer failed!\n");
     goto label_exit;

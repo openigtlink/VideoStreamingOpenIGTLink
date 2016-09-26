@@ -17,6 +17,6 @@ add_executable( VideoStreamServer VideoStreamServer.cxx)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   target_link_libraries( VideoStreamServer OpenIGTLink ${CMAKE_BINARY_DIR}/OpenH264/OpenH264.lib)
 else(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-  target_link_libraries( VideoStreamServer OpenIGTLink ${CMAKE_BINARY_DIR}/OpenH264/libOpenH264.a)
+  target_link_libraries( VideoStreamServer OpenIGTLink ${CMAKE_BINARY_DIR}/OpenH264/libopenh264.a)
 endif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 
