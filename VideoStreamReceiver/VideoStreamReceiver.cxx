@@ -15,7 +15,6 @@
 #include <climits>
 #include "api/svc/codec_api.h"
 #include "api/svc/codec_app_def.h"
-#include "utils/BufferedData.h"
 #include "utils/FileInputStream.h"
 #include "api/sha1.c"
 
@@ -156,9 +155,7 @@ int ReceiveVideoData(igtl::ClientSocket::Pointer& socket, igtl::MessageHeader::P
   if (igtl::MessageHeader::UNPACK_BODY)
   {
     uint8_t* data[3];
-    SBufferInfo bufInfo;
     memset (data, 0, sizeof (data));
-    memset (&bufInfo, 0, sizeof (SBufferInfo));
     int32_t iWidth = videoMsg->GetWidth(), iHeight = videoMsg->GetHeight(), streamLength = videoMsg->GetPackBodySize()- IGTL_VIDEO_HEADER_SIZE;
     H264DecodeInstance(decoder_, videoMsg->GetPackFragmentPointer(2), outputFileName, iWidth, iHeight, streamLength, NULL);
     return 1;

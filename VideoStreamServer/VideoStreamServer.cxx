@@ -15,7 +15,6 @@
 #include "api/svc/codec_api.h"
 #include "api/svc/codec_def.h"
 #include "api/svc/codec_app_def.h"
-#include "utils/BufferedData.h"
 #include "utils/FileInputStream.h"
 #include "api/sha1.c"
 #include "igtl_header.h"
@@ -308,8 +307,8 @@ void* ThreadFunction(void* ptr)
       fileStream.Open(fileName.c_str());
       int frameSize = pEncParamExt.iPicWidth * pEncParamExt.iPicHeight * 3 / 2;
       
-      BufferedData buf;
-      buf.SetLength (frameSize);    
+      uint8_t*  buf = NULL;
+      buf = static_cast<uint8_t*> (realloc (buf, 2*frameSize));// Ensure the capacity
       SFrameBSInfo info;
       memset (&info, 0, sizeof (SFrameBSInfo));
       SSourcePicture pic;
@@ -321,11 +320,11 @@ void* ThreadFunction(void* ptr)
       pic.iColorFormat = videoFormatI420;
       pic.iStride[0]   = pic.iPicWidth;
       pic.iStride[1]   = pic.iStride[2] = pic.iPicWidth >> 1;
-      pic.pData[0]     = buf.data();
+      pic.pData[0]     = buf;
       pic.pData[1]     = pic.pData[0] + pEncParamExt.iPicWidth * pEncParamExt.iPicHeight;
       pic.pData[2]     = pic.pData[1] + (pEncParamExt.iPicWidth * pEncParamExt.iPicHeight >> 2);
       int iFrameIdx =0;
-      while (fileStream.read (buf.data(), frameSize) == frameSize)
+      while (fileStream.read (buf, frameSize) == frameSize)
       {
         pic.uiTimeStamp = (long long)(iFrameIdx * (1000 / pEncParamExt.fMaxFrameRate));
         iFrameIdx++;
@@ -371,6 +370,7 @@ void* ThreadFunction(void* ptr)
           igtl::Sleep(interval);
         }
       }
+      free (buf);
       unsigned char digest[SHA_DIGEST_LENGTH];
       SHA1Result(&ctx, digest);
       CompareHash (digest, kFileParamArray.pkcHashStr);
