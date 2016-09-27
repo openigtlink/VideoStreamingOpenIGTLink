@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
           int c = startVideoMsg->Unpack(1);
           if (c & igtl::MessageHeader::UNPACK_BODY) // if CRC check is OK
             {
-              td.interval = startVideoMsg->GetResolution();
+              td.interval = startVideoMsg->GetTimeInterval();
               td.glock    = glock;
               td.socket   = socket;
               td.stop     = 0;

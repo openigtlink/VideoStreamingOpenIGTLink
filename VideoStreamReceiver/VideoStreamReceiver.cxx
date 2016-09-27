@@ -79,7 +79,7 @@ int main(int argc, char* argv[])
   igtl::StartVideoDataMessage::Pointer startVideoMsg;
   startVideoMsg = igtl::StartVideoDataMessage::New();
   startVideoMsg->SetDeviceName("Video Client");
-  startVideoMsg->SetResolution(interval);
+  startVideoMsg->SetTimeInterval(interval);
   startVideoMsg->SetUseCompress(interval);
   startVideoMsg->Pack();
   socket->Send(startVideoMsg->GetPackPointer(), startVideoMsg->GetPackSize());
